@@ -1,4 +1,15 @@
 {
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parse": "^0.4.0",
@@ -8,15 +19,7 @@
     "mongoose": "^8.1.1",
     "socket.io": "^4.7.4"
   },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "name": "server",
-  "version": "1.0.0",
-  "main": "server.js",
-  "devDependencies": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
 }
