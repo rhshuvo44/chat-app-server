@@ -59,7 +59,7 @@ const login = async (req, res) => {
     res.status(500).json({ error: "Internal server Error" });
   }
 };
-const logout = async (req, res) => {
+const logout = (req, res) => {
   try {
     re.cookie("jwt", "", { maxAge: 0 });
     return res.status(200).json({ message: "Logged out successfully" });
