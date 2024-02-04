@@ -17,7 +17,7 @@ var messageSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps,
+    timestamps: true,
   }
 );
 
