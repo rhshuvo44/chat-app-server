@@ -55,13 +55,18 @@ const login = async (req, res) => {
       profilePic: user?.profilePic,
     });
   } catch (error) {
-    console.log("Error is Signup controller", error.message);
+    console.log("Error is login controller", error.message);
     res.status(500).json({ error: "Internal server Error" });
   }
 };
 const logout = async (req, res) => {
   try {
-  } catch (error) {}
+    re.cookie("jwt", "", { maxAge: 0 });
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.log("Error is logout controller", error.message);
+    res.status(500).json({ error: "Internal server Error" });
+  }
 };
 
 module.exports = { signup, login, logout };
