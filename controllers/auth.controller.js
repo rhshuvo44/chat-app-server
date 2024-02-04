@@ -27,7 +27,6 @@ const signup = async (req, res) => {
     generateToken(newUser._id, res);
     await newUser.save();
     res.status(201).json({
-      _id: newUser._id,
       fullName: newUser.fullName,
       username: newUser.username,
       profilePic: newUser.profilePic,
@@ -37,11 +36,30 @@ const signup = async (req, res) => {
     res.status(500).json({ error: "Internal server Error" });
   }
 };
-const login = (req, res) => {
+const login = async (req, res) => {
   try {
-  } catch (error) {}
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    const isPassword = await bcrypt.compare(password, user?.password || "");
+
+    if (!user && !isPassword) {
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    //jwt
+    generateToken(user._id, res);
+
+    res.status(201).json({
+      fullName: user?.fullName,
+      username: user?.username,
+      profilePic: user?.profilePic,
+    });
+  } catch (error) {
+    console.log("Error is Signup controller", error.message);
+    res.status(500).json({ error: "Internal server Error" });
+  }
 };
-const logout = (req, res) => {
+const logout = async (req, res) => {
   try {
   } catch (error) {}
 };
