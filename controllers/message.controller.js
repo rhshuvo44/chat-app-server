@@ -43,7 +43,7 @@ const getMessages = async (req, res) => {
     if (!conversation) res.status(200).json([]);
     res.status(200).json(conversation.message);
   } catch (error) {
-    console.log("Error is logout controller", error.message);
+    console.log("Error is getMessages controller", error.message);
     res.status(500).json({ error: "Internal server Error" });
   }
 };
