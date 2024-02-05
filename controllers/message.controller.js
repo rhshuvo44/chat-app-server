@@ -34,30 +34,14 @@ const sendMessage = async (req, res) => {
 };
 const getMessages = async (req, res) => {
   try {
-    const { message } = req.body;
     const { id } = req.params;
     const senderId = req.user._id;
 
-    let conversation = await Conversation.findOne({
+    const conversation = await Conversation.findOne({
       participants: { $all: [senderId, id] },
-    });
-    if (!conversation) {
-      conversation = await Conversation.create({
-        participants: { $all: [senderId, id] },
-      });
-    }
-    const newMessage = new Message({
-      senderId,
-      receiverId: id,
-      message,
-    });
-    if (newMessage) {
-      conversation.message.push(newMessage._id);
-    }
-    // await conversation.save();
-    // await newMessage.save();
-    await Promise.all([conversation.save(), newMessage.save()]);
-    res.status(201).json(newMessage);
+    }).populate("message");
+    if (!conversation) res.status(200).json([]);
+    res.status(200).json(conversation.message);
   } catch (error) {
     console.log("Error is logout controller", error.message);
     res.status(500).json({ error: "Internal server Error" });
