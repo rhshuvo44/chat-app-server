@@ -1,5 +1,5 @@
 const express = require("express");
-const cookieParser = require("cookie-parse");
+const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth.route");
 const connectToMongoDB = require("./db/connectToMongoDB");
 const messageRoute = require("./routes/message.route");
