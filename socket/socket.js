@@ -9,11 +9,15 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+const userSocketMap = {};
 
 io.on("connection", (socket) => {
-  console.log("a user connect ", socket.id);
+  const userId = socket.handshake.query.userId;
+  if (userId !== "undefine") userSocketMap[userId] = socket.id;
+  io.emit("getOnlineUsers", Object.keys(userSocketMap));
   socket.on("disconnect", () => {
-    console.log(" user disconnect ", socket.id);
+    delete userSocketMap[userId];
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });
 
